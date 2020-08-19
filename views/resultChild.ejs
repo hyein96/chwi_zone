@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<body>
+<div id="access_token"><%=data.access_token%></div>
+<div id="id_token"><%=data.id_token%></div>
+
+<button class="youtubeBtn">구독리스트 불러오기</button>
+</body>
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script>
+  $("#youtubeBtn").click(function () {
+      
+     var access_token = $("#access_token").val();
+    
+        $.ajax({
+          url: "/youtube",
+          type: "POST",
+          data: {
+            access_token: access_token,
+          },
+          success: function (data) {
+            console.log(data);
+          },
+        });
+    });
+       
+</script>
+</html>
