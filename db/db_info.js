@@ -7,6 +7,7 @@ module.exports = (function () {
         password: "park7645",
         database: "chwizone",
         port: "3306",
+        multipleStatements: true 
       },
     };
   })();
