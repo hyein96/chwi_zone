@@ -16,9 +16,8 @@ router.get("/", function (req, res) {
     //let email_address = "1";
     console.log(stocks_id);
   
-    //우선 email_address ="1"로 test
     pool.getConnection(function (err, connection) {
-      //category list - > sector_id select
+      //산업 분야, 회사명 조회
       let get_company_query = `SELECT sector_name ,stocks_name FROM stock_code WHERE stocks_id =${stocks_id};`;
       connection.query(get_company_query, function (err, rows) {
         if (err) {

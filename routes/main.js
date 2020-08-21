@@ -14,12 +14,18 @@ router.get("/", function (req, res) {
   //해당 email 구독하는 youtube_category 가져오기
   //category랑 매칭하는 sector_id 가져오기
 
-  //우선 email_address ="1"로 test
-  let email_address = "1";
+
+  //수정중 수정중 수정중
+  //수정중 수정중 수정중
+  //수정중 수정중 수정중
+  //수정중 수정중 수정중
+  //수정중 수정중 수정중
+  let email_address = req.query.email_address;
   pool.getConnection(function (err, connection) {
     //category list - > sector_id select
-    let get_sector_query = `SELECT sector_id FROM chwizone.category_code WHERE youtube_category IN(select youtube_category from chwizone.my_youtube where email_address="${email_address}" order by sub_count desc);`;
-    let get_sector = connection.query(get_sector_query, function (err, rows) {
+    let get_sector_query = `SELECT youtube_category,sector_id FROM chwizone.category_code WHERE youtube_category IN(select youtube_category from chwizone.my_youtube where email_address="${email_address}" order by sub_count desc);`;
+    let get_category_query =`select DISTINCT youtube_category from chwizone.my_youtube where email_address="${email_address}" order by sub_count desc`
+    connection.query(get_sector_query, function (err, rows) {
       if (err) {
         connection.release();
         throw err;
