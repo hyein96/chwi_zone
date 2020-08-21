@@ -9,27 +9,47 @@ var pool = mysql.createPool(config);
 //category 값 key, value 저장 -> db에 id와 함께 저장
 //id 가져오는거 방법 생각하기!!!!
 const my_youtube = [];
-
+let access_token;
 // channel 중복 값 거르기 위해 set 사용
 
 router.get("/subscribe", function (req, res) {
-  let access_token =
-    "";
-  var option = {
-    method: "GET",
-    url: "https://www.googleapis.com/youtube/v3/subscriptions",
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-    //form 형태는 form / 쿼리스트링 형태는 qs / json 형태는 json ***
-    qs: {
-      part: "snippet",
-      mine: "true",
-      maxResults: "50",
-      key: `apikey`,
-      fields: "items(snippet(resourceId(channelId)))",
-    },
-  };
+  let email_address = req.query.email_address;
+  pool.getConnection(function (err, connection) {
+    //category list - > sector_id select
+    let get_at_query = `SELECT access_token FROM user WHERE email_address="${email_address}";`;
+    connection.query(get_at_query, function (
+      err,
+      rows
+    ) {
+      if (err) {
+        connection.release();
+        throw err;
+      } else {
+        if (rows.length == 0) {
+          res.json("you are not my user");
+        } else {
+          console.log(rows[0].access_token);
+          access_token = rows[0].access_token;
+          var option = {
+            method: "GET",
+            url: "https://www.googleapis.com/youtube/v3/subscriptions",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+            //form 형태는 form / 쿼리스트링 형태는 qs / json 형태는 json ***
+            qs: {
+              part: "snippet",
+              mine: "true",
+              maxResults: "50",
+              key: `apikey`,
+              fields: "items(snippet(resourceId(channelId)))",
+            },
+          };
+        }
+      }
+      connection.release();
+    });
+  });
 
   const delay = (ms) => {
     request(option, function (error, response, body) {
