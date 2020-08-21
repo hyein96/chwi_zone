@@ -111,7 +111,7 @@ router.get("/googlesigncallback", (req, res, next) => {
               connection.query(sql, function (err, results) {
                 if (err) throw err;
                 else {
-                  res.render("access_token update");
+                  res.json("access_token update");
                 }
               });
             }
