@@ -8,6 +8,10 @@ var dbconfig = require("../db/db_con")();
 var pool = mysql.createPool(config);
 
 
+router.get('/',(req,res,next)=>{
+    res.render("index.ejs");
+});
+
 router.get("/", function (req, res) {
 
 });

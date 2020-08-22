@@ -4,8 +4,8 @@ const request = require("request");
 
 // client id 변경하기
 const CLIENT_ID =
-  "CLIENT_ID";
-const CLIENT_SECRET = "CLIENT_SECRET";
+  "323175054347-2opv5viepsbbh21foitrcit5qvfdh5is.apps.googleusercontent.com";
+const CLIENT_SECRET = "22TqiukkUyK8yAn4Wjip3BSR";
 var mysql = require("mysql");
 var config = require("../db/db_info").local;
 var dbconfig = require("../db/db_con")();
@@ -16,7 +16,7 @@ const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(CLIENT_ID);
 /* GET home page. */
 
-//가입 정보 선언
+//가입 정보 선언(login함수에서 매개변수로 쓰이므로 전역으로)
 let access_token;
 let refresh_token;
 let user_name;
@@ -51,7 +51,7 @@ router.get("/googlesigncallback", (req, res, next) => {
       } else {
         var accessRequestResult = JSON.parse(body);
         console.log(accessRequestResult);
-       //token 저장
+        //token 저장
         access_token = accessRequestResult.access_token;
         refresh_token = accessRequestResult.refresh_token;
 
@@ -86,8 +86,8 @@ router.get("/googlesigncallback", (req, res, next) => {
     });
   };
   //정보 가져온 후 회원확인 절차 loing
-  delay(1000).then(() => {
-    function login(access_token, refresh_token, user_name, email_address) {
+  delay(3000).then(() => {
+    function login(access_token, refresh_token, user_name, email_address, callback) {
       let find_user_query = `select * from user where email_address="${email_address}"`;
       pool.getConnection(function (err, connection) {
 
@@ -96,13 +96,14 @@ router.get("/googlesigncallback", (req, res, next) => {
             connection.release();
             throw err;
           } else {
-            //회원 x -> db 저장
+            //회원 x -> db 저장(길이가 0이면 회원이 없는 것)
             if (rows.length == 0) {
               var sql = `insert into user (access_token, refresh_token, user_name, email_address) values ("${access_token}","${refresh_token}","${user_name}","${email_address}");`;
               connection.query(sql, function (err, results) {
                 if (err) throw err;
                 else {
-                  res.json("user db save,,,");
+
+                  setTimeout(callback, 1000, email_address);
                 }
               });
             } else {
@@ -111,7 +112,7 @@ router.get("/googlesigncallback", (req, res, next) => {
               connection.query(sql, function (err, results) {
                 if (err) throw err;
                 else {
-                  res.json("access_token update");
+                  setTimeout(callback, 1000, email_address);
                 }
               });
             }
@@ -120,7 +121,11 @@ router.get("/googlesigncallback", (req, res, next) => {
         });
       });
     }
-    login(access_token, refresh_token, user_name, email_address);
+    login(access_token, refresh_token, user_name, email_address, function (email_address) {
+      //youtube.ejs로 넘기기 
+      console.log("youtube.ejs로 넘기는 data:" + email_address);
+      res.render("youtube.ejs", { data: email_address });
+    });
   });
 });
 module.exports = router;
