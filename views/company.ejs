@@ -1,4 +1,3 @@
-<!-- 전체 공통 틀-->
 <!DOCTYPE HTML>
 <html>
 
@@ -84,9 +83,13 @@
                </header>
             </section>
          </section>
-         <h1>INDEX 페이지(로그인)</h1>
-         <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=323175054347-2opv5viepsbbh21foitrcit5qvfdh5is.apps.googleusercontent.com">로그인</a>
-         
+         <h1>COMPANY 페이지</h1>
+         <span>회사 : </span>
+         <span id = "name"> </span><br>
+         <span>산업 : </span>
+         <span id = "sector"></span>
+         <!--data 분석해서 띄우기 -->
+         <div id ="company"></div>
          <!-- Footer -->
          <section id="footer">
          </section>
@@ -99,7 +102,33 @@
       <script src="../js/util.js"></script>
       <script src="../js/main.js"></script>
       <script>
-
+      //쿼리문 분석해서 ajax로 company.js ./info 로 날려서 정보 받아오기
+      //queryString를 객체화(Object)하는 메소드
+      function getQueryStringObject() {
+        var a = window.location.search.substr(1).split("&");
+        if (a == "") return {};
+        var b = {};
+        for (var i = 0; i < a.length; ++i) {
+          var p = a[i].split("=", 2);
+          if (p.length == 1) b[p[0]] = "";
+          else b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+        }
+        return b;
+      }
+      var qs = getQueryStringObject(); 
+      console.log(qs);
+      $.ajax({
+        url: "/company/info",
+        type: "GET",
+        data: {
+          stocks_id: qs.stocks_id,
+        },
+        success: function (data) {
+         console.log(data);
+         $("#name").text(data[0].stocks_name);
+         $("#sector").text(data[0].sector_name);
+        },
+      });
       </script>
 
 </body>
