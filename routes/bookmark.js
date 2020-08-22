@@ -7,7 +7,10 @@ var config = require("../db/db_info").local;
 var dbconfig = require("../db/db_con")();
 var pool = mysql.createPool(config);
 
-router.get("/", function (req, res) {
+router.get("/", function(req,res){
+  res.render("bookmark.ejs");
+})
+router.get("/company", function (req, res) {
    let email_address = req.query.email_address
     //해당 email 구독하는 youtube_category 가져오기
     //category랑 매칭하는 sector_id 가져오기
@@ -70,7 +73,7 @@ router.post("/", function (req, res) {
           connection.query(delete_bm, function (err, results) {
           if (err) throw err;
           else {
-            res.render("bookmark update..");
+            res.json("bookmark update..");
           }
         });
                }

@@ -10,6 +10,7 @@ var pool = mysql.createPool(config);
 router.get("/", function(req,res) {
   res.render("mypage.ejs");
 });
+
 router.get("/user", function (req, res) {
   let email_address = req.query.email_address;
   //user 정보 가져오기

@@ -5,19 +5,42 @@
 <head></head>
 
 <body>
-    <!--<div id="emailAddress"><%=data%></div> --> 
-    <!--<%=data%>로 받아오면 됨-->
-    <!-- youtube.js(서버)의 /subscribe로 GET요청-->
-    <h1>로딩 페이지 </h1>
-    <a href="/youtube/subscribe?email_address=<%=data%>">
-        로딩중</a>
-     <div id="user"><%=data%></div>
     
+    <!-- res.render로 data(json) 오면 <%=data%>로 받아오면 됨-->
+    <h1>로딩 페이지 </h1>
+    <button id="startBtn">START</button>
+    <!--제대로 data(email_address) 왔는지 확인 -->
+    <div id="email"><%=data%></div>
 
 </body>
+<script src="../js/jquery-3.2.1.min.js"></script>
 <script>
-    //script에서 data 받아오는 법 
-    console.log(document.getElementById("user").textContent);
+    var email_address = document.getElementById("email").textContent;
+    //로그인 완료되면 account.js에서 넘어온 email 값을 session에 넣어서 활용(query로 같이 안날려도 됨)
+    sessionStorage.setItem("email", email_address);
+
+
+    function loadYoutube() {
+        $.ajax({
+            url: "/youtube/subscribe",
+            type: "GET",
+            data: {
+                email_address: email_address,
+            },
+            success: function (data) {
+                console.log(data);
+                if (data == 1) {
+                   window.location.href = "/main";
+                }
+            }
+        });
+    }
+    $("#startBtn").click(function() {
+        loadYoutube();
+    });
+
+
+
 </script>
 
 </html>

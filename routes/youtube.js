@@ -82,23 +82,20 @@ router.get("/subscribe", function (req, res) {
         
           delay(3000).then(() => {
             count_value();
-            res.render("main.ejs",{ data: email_address });
+            //session 값에 email 있으므로 data 안넘겨줘도 됨(db에 저장하고 main.ejs로 넘기고 끝)
+            //res.render("main.ejs");
+            res.json(1);
           });
-          //여기서(res 있는 곳) main.ejs로 바꾸며 email_address값 넘겨주기 
-          //email_address 전역으로 선언해서 DB insert 할 때 넣기(query로 받아온 것 까지 확인))
          
         }
       }
       connection.release();
     });
   });
-
-  
-
   // console.log(resultJson);
   //res.json(resultJson);
 });
-​
+
 function getTopic(access_token, channelId) {
   // for(let i=0;i<channels.length;i++){
   let option = {
@@ -123,7 +120,7 @@ function getTopic(access_token, channelId) {
     get_category(topics);
   });
 }
-​
+
 function get_category(topics) {
   //console.log(topics)
   let str = "";
@@ -155,10 +152,10 @@ function get_category(topics) {
           }
         }
       }
-​
+
       connection.release();
     });
-​
+
     //console.log(my_youtube);
   });
 }
@@ -171,7 +168,7 @@ function count_value() {
     }
     return t;
   }, {});
-​
+
   console.log(result);
   for (let key in result) {
     pool.getConnection(function (err, connection) {
@@ -189,10 +186,11 @@ function count_value() {
               console.log("insert success");
             }
           }
-​
+
           connection.release();
         });
     });
   }
 }
+
 module.exports = router;
