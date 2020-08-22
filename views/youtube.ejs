@@ -1,0 +1,23 @@
+<!-- 로딩 페이지(분석중)-->
+<!DOCTYPE HTML>
+<html>
+
+<head></head>
+
+<body>
+    <!--<div id="emailAddress"><%=data%></div> --> 
+    <!--<%=data%>로 받아오면 됨-->
+    <!-- youtube.js(서버)의 /subscribe로 GET요청-->
+    <h1>로딩 페이지 </h1>
+    <a href="/youtube/subscribe?email_address=<%=data%>">
+        로딩중</a>
+     <div id="user"><%=data%></div>
+    
+
+</body>
+<script>
+    //script에서 data 받아오는 법 
+    console.log(document.getElementById("user").textContent);
+</script>
+
+</html>
