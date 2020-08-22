@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const request = require("request");
-
+​
 var mysql = require("mysql");
 var config = require("../db/db_info").local;
 var dbconfig = require("../db/db_con")();
 var pool = mysql.createPool(config);
-
+​
 const company_list = [];
 let company = new Object();
 
@@ -54,7 +54,7 @@ router.get("/recommend", function (req, res) {
           });
         }
       }
-
+​
       connection.release();
     });
   });
@@ -84,7 +84,7 @@ function get_company(sector_id) {
             company = {};
           }
         }
-
+​
         connection.release();
       }
     );

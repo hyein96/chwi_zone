@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const request = require("request");
-
+​
 var mysql = require("mysql");
 var config = require("../db/db_info").local;
 var dbconfig = require("../db/db_con")();
@@ -42,7 +42,7 @@ router.get("/info", function (req, res) {
       });
     });
   });
-
-
-
+​
+​
+​
 module.exports = router;

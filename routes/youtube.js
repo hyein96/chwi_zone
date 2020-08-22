@@ -98,7 +98,7 @@ router.get("/subscribe", function (req, res) {
   // console.log(resultJson);
   //res.json(resultJson);
 });
-
+​
 function getTopic(access_token, channelId) {
   // for(let i=0;i<channels.length;i++){
   let option = {
@@ -123,7 +123,7 @@ function getTopic(access_token, channelId) {
     get_category(topics);
   });
 }
-
+​
 function get_category(topics) {
   //console.log(topics)
   let str = "";
@@ -155,10 +155,10 @@ function get_category(topics) {
           }
         }
       }
-
+​
       connection.release();
     });
-
+​
     //console.log(my_youtube);
   });
 }
@@ -171,7 +171,7 @@ function count_value() {
     }
     return t;
   }, {});
-
+​
   console.log(result);
   for (let key in result) {
     pool.getConnection(function (err, connection) {
@@ -189,11 +189,10 @@ function count_value() {
               console.log("insert success");
             }
           }
-
+​
           connection.release();
         });
     });
   }
 }
-
 module.exports = router;
