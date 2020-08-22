@@ -99,14 +99,16 @@
       <script src="../js/util.js"></script>
       <script src="../js/main.js"></script>
 
-      <script>
-         //받아온 data값이 아닌 session 값에 있는 email 활용
-         var email_address = sessionStorage.getItem("email");
+    
 
-         //취향 받아와서 회사 띄우기(sector_name보다 youtube_category로 하는게 좋을 듯)
-         //main.js 코드다 company_list가 서버 초기화 안시키면 계속 받아오지기 때문에 company_list 값 받아올때마다 초기화하게 코드 작성 
-         recommendStock();
-         function recommendStock() {
+   <script>
+      //받아온 email 저장
+      var email_address = document.getElementById("email").textContent;
+      
+      //취향 받아와서 회사 띄우기(sector_name보다 youtube_category로 하는게 좋을 듯)
+      //main.js 코드다 company_list가 서버 초기화 안시키면 계속 받아오지기 때문에 company_list 값 받아올때마다 초기화하게 코드 작성 
+      recommendStock();
+      function recommendStock() {
             $.ajax({
                url: "/main/recommend",
                type: "GET",

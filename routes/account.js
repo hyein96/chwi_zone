@@ -87,16 +87,22 @@ router.get("/googlesigncallback", (req, res, next) => {
   };
   //정보 가져온 후 회원확인 절차 loing
   delay(3000).then(() => {
-    function login(access_token, refresh_token, user_name, email_address, callback) {
+    function login(
+      access_token,
+      refresh_token,
+      user_name,
+      email_address,
+      callback
+    ) {
       let find_user_query = `select * from user where email_address="${email_address}"`;
       pool.getConnection(function (err, connection) {
 
-        let find_user = connection.query(find_user_query, function (err, rows) {
+        connection.query(find_user_query, function (err, rows) {
           if (err) {
             connection.release();
             throw err;
           } else {
-            //회원 x -> db 저장(길이가 0이면 회원이 없는 것)
+            //회원 x -> db 저장
             if (rows.length == 0) {
               var sql = `insert into user (access_token, refresh_token, user_name, email_address) values ("${access_token}","${refresh_token}","${user_name}","${email_address}");`;
               connection.query(sql, function (err, results) {
@@ -112,6 +118,7 @@ router.get("/googlesigncallback", (req, res, next) => {
               connection.query(sql, function (err, results) {
                 if (err) throw err;
                 else {
+                  //res.json("access_token update");
                   setTimeout(callback, 1000, email_address);
                 }
               });
@@ -121,8 +128,9 @@ router.get("/googlesigncallback", (req, res, next) => {
         });
       });
     }
-    login(access_token, refresh_token, user_name, email_address, function (email_address) {
-      //youtube.ejs로 넘기기 
+    login(access_token, refresh_token, user_name, email_address, function (
+      email_address
+    ) {
       console.log("youtube.ejs로 넘기는 data:" + email_address);
       res.render("youtube.ejs", { data: email_address });
     });
