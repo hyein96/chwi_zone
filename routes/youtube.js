@@ -74,8 +74,8 @@ router.get("/subscribe", function (req, res) {
           delay(3000).then(() => {
             count_value(function(){
               my_youtube=[];
-              res.json(1);
             });
+            res.json(1);
             //session 값에 email 있으므로 data 안넘겨줘도 됨(db에 저장하고 main.ejs로 넘기고 끝)
             //res.render("main.ejs");
             
