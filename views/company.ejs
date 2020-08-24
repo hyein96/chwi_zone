@@ -11,7 +11,7 @@
 
 <body class="is-preload">
 
-
+ 
       <!-- Header -->
       <header id="header">
          <h1><a href="./main">Chwi-Zone</a></h1>
@@ -63,18 +63,25 @@
       </section>
       <!-- Main -->
       <div id="main">
+         <!--페이지 내용 -->
+         
+       
+         <!--data 분석해서 띄우기 -->
          <div style = "position: absolute;">
-      <div style="background-color: #d6d4d4; width:250px; height:60px; float:left; margin: 65px; margin-top: 50px;border-radius: 20px;">
-         <h3 id = "companyfav">기업 정보</h3>
-   </div>
-   
-         </div>
+            <div>
+               <h1 id = "company">COMPANY 페이지</h1>
+            </div>
+      
+        
+            <br>
          
       </div>
-      <br><br><br><br><br><br>
-
-      
-         <!--페이지 내용 -->
+         </div>
+         <img id = "commonCol" src="../images/color.png"></img>
+      </div>
+         
+         <br>
+         <hr>
          
          <span id="companyName" style="font-size: 30px; font-weight: bold;"> </span>
          <i class="icon solid fa-heart bookmark" style="float:right; margin: 10px;"></i><br><br>
@@ -82,7 +89,6 @@
          <span style="font-weight: bold;">주가: </span>
          <span id="companyPrice" style="font-weight: bold;"></span><br>
          <img id = "companyChart" src=""></img>
-         
 
          <!-- Footer -->
          <section id="footer">
@@ -100,12 +106,14 @@
 
 
       <script>
-          const like = document.querySelector(".bookmark");
-
-          let value ;
+            const like = document.querySelector(".bookmark");
+         let value ;
          let order;
+        
+
          //쿼리문 분석해서 ajax로 company.js ./info 로 날려서 정보 받아오기
          //queryString를 객체화(Object)하는 메소드
+         
          var email_address = sessionStorage.getItem("email");
          function getQueryStringObject() {
             var a = window.location.search.substr(1).split("&");
@@ -119,6 +127,7 @@
             return b;
          }
          var qs = getQueryStringObject();
+         
          console.log(qs);
          companyInfo();
          function companyInfo() {
@@ -163,6 +172,7 @@
                },
             });
          });
+      
          priceChart();
          function priceChart() {
             $.ajax({
