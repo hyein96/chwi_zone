@@ -1,21 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const request = require("request");
+
+// db - mysql
 let mysql = require("mysql");
 let config = require("../db/db_info").local;
 let dbconfig = require("../db/db_con")();
 let pool = mysql.createPool(config);
 
-//category 값 key, value 저장 -> db에 id와 함께 저장
-//id 가져오는거 방법 생각하기!!!!
+// 전역변수 
 let my_youtube = [];
 let access_token;
 let email_address;
-// channel 중복 값 거르기 위해 set 사용
 
 router.get("/subscribe", function (req, res) {
   email_address = req.query.email_address;
   console.log("youtube.ejs에서 받아온 값:" + email_address);
+
+  // email 정보로 access_token 받아오기
   pool.getConnection(function (err, connection) {
     //category list - > sector_id select
     let get_at_query = `SELECT access_token FROM user WHERE email_address="${email_address}";`;
@@ -27,6 +29,7 @@ router.get("/subscribe", function (req, res) {
         if (rows.length == 0) {
           res.json("you are not my user");
         } else {
+          //구독리스트 query 날리기
           console.log(rows[0].access_token);
           access_token = rows[0].access_token;
           let option = {
@@ -43,7 +46,7 @@ router.get("/subscribe", function (req, res) {
               fields: "items(snippet(resourceId(channelId)))",
             },
           };
-
+          //category counting 빈 값이 들어가서 delay 줌 -> 결과 받아온 후 함수 실행
           const delay = (ms) => {
             request(option, function (error, response, body) {
               if (error) {
@@ -71,6 +74,7 @@ router.get("/subscribe", function (req, res) {
               }
             });
           };
+          //db insert가 끝난 후 누적 값을 제거하기 위해 배열 재선언
           delay(3000).then(() => {
             count_value(function(){
               my_youtube=[];
@@ -90,6 +94,7 @@ router.get("/subscribe", function (req, res) {
   //res.json(resultJson);
 });
 
+/*channel id 받아와서 topic id가져오는 함수입니다.*/
 function getTopic(access_token, channelId) {
   // for(let i=0;i<channels.length;i++){
   let option = {
@@ -102,7 +107,6 @@ function getTopic(access_token, channelId) {
     qs: {
       part: "topicDetails",
       id: channelId,
-      key: `apikey`,
       fields: "items(topicDetails)",
     },
   };
@@ -115,6 +119,8 @@ function getTopic(access_token, channelId) {
   });
 }
 
+
+/*topic list 받아와서 중복 제거 후 category 반환하는 함수입니다.*/
 function get_category(topics) {
   //console.log(topics)
   let str = "";
@@ -150,6 +156,8 @@ function get_category(topics) {
     //console.log(my_youtube);
   });
 }
+
+//구독 리스트 분석이 끝난 후 전체 결과를 db저장
 function count_value(callback) {
   const result = my_youtube.reduce((t, a) => {
     if (t[a]) {
