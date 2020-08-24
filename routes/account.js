@@ -6,10 +6,10 @@ const request = require("request");
 const CLIENT_ID =
   "323175054347-2opv5viepsbbh21foitrcit5qvfdh5is.apps.googleusercontent.com";
 const CLIENT_SECRET = "22TqiukkUyK8yAn4Wjip3BSR";
-var mysql = require("mysql");
-var config = require("../db/db_info").local;
-var dbconfig = require("../db/db_con")();
-var pool = mysql.createPool(config);
+let mysql = require("mysql");
+let config = require("../db/db_info").local;
+let dbconfig = require("../db/db_con")();
+let pool = mysql.createPool(config);
 
 // 구글 로그인 인증
 const { OAuth2Client } = require("google-auth-library");
@@ -27,7 +27,7 @@ router.get("/googlesigncallback", (req, res, next) => {
   let authCode = req.query.code;
   console.log(authCode);
 
-  var option = {
+  let option = {
     method: "POST",
     url: "https://oauth2.googleapis.com/token",
     headers: {
@@ -49,7 +49,7 @@ router.get("/googlesigncallback", (req, res, next) => {
         console.error(error);
         throw error;
       } else {
-        var accessRequestResult = JSON.parse(body);
+        let accessRequestResult = JSON.parse(body);
         console.log(accessRequestResult);
         //token 저장
         access_token = accessRequestResult.access_token;
@@ -104,7 +104,7 @@ router.get("/googlesigncallback", (req, res, next) => {
           } else {
             //회원 x -> db 저장
             if (rows.length == 0) {
-              var sql = `insert into user (access_token, refresh_token, user_name, email_address) values ("${access_token}","${refresh_token}","${user_name}","${email_address}");`;
+              let sql = `insert into user (access_token, refresh_token, user_name, email_address) values ("${access_token}","${refresh_token}","${user_name}","${email_address}");`;
               connection.query(sql, function (err, results) {
                 if (err) throw err;
                 else {
@@ -114,7 +114,7 @@ router.get("/googlesigncallback", (req, res, next) => {
               });
             } else {
               //회원 o -> 정보 업데이트
-              var sql = `UPDATE user SET access_token="${access_token}", refresh_token="${refresh_token}" where email_address="${email_address}";`;
+              let sql = `UPDATE user SET access_token="${access_token}", refresh_token="${refresh_token}" where email_address="${email_address}";`;
               connection.query(sql, function (err, results) {
                 if (err) throw err;
                 else {

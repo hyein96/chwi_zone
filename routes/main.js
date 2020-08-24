@@ -2,17 +2,18 @@ const express = require("express");
 const router = express.Router();
 const request = require("request");
 
-var mysql = require("mysql");
-var config = require("../db/db_info").local;
-var dbconfig = require("../db/db_con")();
-var pool = mysql.createPool(config);
+let mysql = require("mysql");
+let config = require("../db/db_info").local;
+let dbconfig = require("../db/db_con")();
+let pool = mysql.createPool(config);
+
+const company_list = [];
+let company = new Object();
 
 router.get("/", function(req,res){
   res.render("main.ejs");
 })
 
-const company_list = [];
-let company = new Object();
 
 router.get("/recommend", function (req, res) {
 
@@ -26,7 +27,7 @@ router.get("/recommend", function (req, res) {
   pool.getConnection(function (err, connection) {
     //category list - > sector_id select
     let get_sector_query = `SELECT sector_id FROM chwizone.category_code WHERE youtube_category IN(select youtube_category from chwizone.my_youtube where email_address="${email_address}" order by sub_count desc);`;
-    let get_sector = connection.query(get_sector_query, function (err, rows) {
+    connection.query(get_sector_query, function (err, rows) {
       if (err) {
         connection.release();
         throw err;
@@ -68,7 +69,7 @@ function get_company(sector_id) {
   let get_sector_name_query = `SELECT DISTINCT sector_name FROM chwizone.stock_code WHERE sector_id = "${sector_id}";`;
   let get_company_query = `SELECT stocks_name,stocks_id FROM chwizone.stock_code WHERE sector_id ="${sector_id}";`;
   pool.getConnection(function (err, connection) {
-    let get_company_info = connection.query(
+    connection.query(
       get_sector_name_query + get_company_query,
       function (err, rows, fields) {
         if (err) {

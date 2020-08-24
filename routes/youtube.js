@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const request = require("request");
-var mysql = require("mysql");
-var config = require("../db/db_info").local;
-var dbconfig = require("../db/db_con")();
-var pool = mysql.createPool(config);
+let mysql = require("mysql");
+let config = require("../db/db_info").local;
+let dbconfig = require("../db/db_con")();
+let pool = mysql.createPool(config);
 
 //category 값 key, value 저장 -> db에 id와 함께 저장
 //id 가져오는거 방법 생각하기!!!!
@@ -29,7 +29,7 @@ router.get("/subscribe", function (req, res) {
         } else {
           console.log(rows[0].access_token);
           access_token = rows[0].access_token;
-          var option = {
+          let option = {
             method: "GET",
             url: "https://www.googleapis.com/youtube/v3/subscriptions",
             headers: {
@@ -50,7 +50,7 @@ router.get("/subscribe", function (req, res) {
                 console.error(error);
                 throw error;
               } else {
-                var resultJson = JSON.parse(body);
+                let resultJson = JSON.parse(body);
                 let items = resultJson.items;
                 for (let i = 0; i < items.length; i++) {
                   let item = items[i].snippet;

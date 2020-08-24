@@ -14,7 +14,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "public")));
 
-// let IndexRouter 
 const indexRouter = require("./routes/index");
 const accountRouter = require("./routes/account");
 const youtubeRouter = require("./routes/youtube");
@@ -22,7 +21,6 @@ const mainRouter = require("./routes/main");
 const mypageRouter = require("./routes/mypage");
 const bookmarkRouter = require("./routes/bookmark");
 const companyRouter = require("./routes/company");
-
 
 
 app.use("/index",indexRouter);
