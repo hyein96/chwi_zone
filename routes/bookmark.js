@@ -21,7 +21,7 @@ router.get("/company", function (req, res) {
         throw err;
       } else {
         if (rows.length == 0) {
-          res.json("bookmark 정보 없음");
+          res.json("none");
         } else {
           //bookmark 정보 있으면 출력
           console.log(rows);
