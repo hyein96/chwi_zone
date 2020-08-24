@@ -10,6 +10,9 @@ scrapingResult = {
 function getData(){
     request("https://finance.naver.com/item/main.nhn?code=005930", function (err, res, body){
         const $ = cheerio.load(body);
+        const imgSrc = $("#img_chart_area").attr('src');
+        console.log(imgSrc);
+        
         const bodyList = $(".today").map(function(i,element){
             scrapingResult['price'] = String($(element).find('p:nth-of-type(1)').text());
 
