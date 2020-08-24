@@ -6,6 +6,7 @@
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
    <link rel="stylesheet" href="../css/main.css" />
+   <link rel="stylesheet" href="../css/star.css" />
    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
@@ -95,6 +96,12 @@
          <!-- Footer -->
          <section id="footer">
          </section>
+         <input type="radio" class="icon solid fa-star">
+         <!-- <input type="button" onclick="toggle(this)" class="icon solid fa-star"> -->
+         <a onclick="if(!confirm('즐겨찾기에 추가하시겠습니까?')){return false;}" class="icon solid fa-star"
+            style="float:right;">즐겨찾기</a><br>
+         <hr>
+         <i class="icon solid fa-heart bookmark"></i>
       </div>
 
       <!-- Scripts -->
@@ -104,8 +111,15 @@
       <script src="../js/util.js"></script>
       <script src="../js/main.js"></script>
       <script>
+         const like = document.querySelector(".bookmark");
+         let value ;
+         let order;
+        
+
          //쿼리문 분석해서 ajax로 company.js ./info 로 날려서 정보 받아오기
          //queryString를 객체화(Object)하는 메소드
+         
+         var email_address = sessionStorage.getItem("email");
          function getQueryStringObject() {
             var a = window.location.search.substr(1).split("&");
             if (a == "") return {};
@@ -118,6 +132,7 @@
             return b;
          }
          var qs = getQueryStringObject();
+         
          console.log(qs);
          companyInfo();
          function companyInfo() {
@@ -126,14 +141,42 @@
                type: "GET",
                data: {
                   stocks_id: qs.stocks_id,
+                  email_address :email_address,
                },
                success: function (data) {
-                  console.log(data);
-                  $("#name").text(data[0].stocks_name);
-                  $("#sector").text(data[0].sector_name);
+                  console.log(data.length);
+                  $("#name").text(data[0][0].stocks_name);
+                  $("#sector").text(data[0][0].sector_name);
+                  value = data[1][0].value;
+                  console.log(value);
+                  if(value == 1){
+                     like.classList.add("active");
+                  }else if (value ==0){
+                     like.classList.remove("active");
+                  }
                },
             });
          }
+         like.addEventListener("click", () => {
+            like.classList.toggle("active");
+            if(like.classList.contains("active")){
+               order = "insert"
+            }else{
+               order = "delete"
+            }
+            $.ajax({
+               url: "/bookmark",
+               type: "POST",
+               data: {
+                  stocks_id: qs.stocks_id,
+                  email_address :email_address,
+                  order: order,
+               },
+               success: function (data) {
+                 console.log("bookmark success");
+               },
+            });
+         });
       </script>
 
 </body>

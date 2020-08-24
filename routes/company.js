@@ -23,7 +23,8 @@ router.get("/info", function (req, res) {
     pool.getConnection(function (err, connection) {
       //category list - > sector_id select
       let get_company_query = `SELECT sector_name ,stocks_name FROM stock_code WHERE stocks_id =${stocks_id};`;
-      connection.query(get_company_query, function (err, rows) {
+      let get_bookmark = `select count(*) as value from bookmark where email_address="${email_address}" and stocks_id=${stocks_id}`
+      connection.query(get_company_query+get_bookmark, function (err, rows) {
         if (err) {
           connection.release();
           throw err;
