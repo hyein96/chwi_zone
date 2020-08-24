@@ -60,17 +60,6 @@
                </li>
             </ul>
          </section>
-         <!-- login action -->
-         <section>
-            <ul class="actions stacked">
-               <li>
-                  <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=323175054347-2opv5viepsbbh21foitrcit5qvfdh5is.apps.googleusercontent.com"
-                  class="button large fit">
-                  Sign in with Google
-               </a>
-               </li>
-            </ul>
-         </section>
       </section>
       <!-- Main -->
       <div id="main">
@@ -179,6 +168,9 @@
             $.ajax({
                url: "/company/price",
                type: "GET",
+               data: {
+                  stocks_id: qs.stocks_id,
+               },
                success: function (data) {
                   console.log(data);
                   $("#companyPrice").text(data[0]);

@@ -11,8 +11,6 @@
 
 <body class="is-preload">
 
-   <!-- Wrapper -->
-   <div id="wrapper">
       <!-- Header -->
       <header id="header">
          <h1><a href="./main">Chwi-Zone</a></h1>
@@ -61,28 +59,17 @@
                </li>
             </ul>
          </section>
-         <!-- login action -->
-         <section>
-            <ul class="actions stacked">
-               <li>
-                  <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=323175054347-2opv5viepsbbh21foitrcit5qvfdh5is.apps.googleusercontent.com"
-                  class="button large fit">
-                  Sign in with Google
-               </a>
-               </li>
-            </ul>
-         </section>
       </section>
       <!-- Main -->
-      <div id="main">
-         <h1 style="font-size:large">나의 관심 <br>회사 리스트</h1><hr>
-          <!--페이지 내용 -->
-          <h1>BOOKMARK</h1>
-          <section id="bookmarkList"></section>
-         <!-- Footer -->
-         <section id="footer">
-         </section>
+      <div>
+         <div style = "position: absolute;">
+            <div>
+               <img style="margin-top:130px;" src = ../images/bookmarkText.png></img>
+            </div>
+         </div>
+         <img id = "commonCol" src="../images/color.png"></img>
       </div>
+      <section id = "bookmarkList"></section>
 
       <!-- Scripts -->
       <script src="../js/jquery-3.2.1.min.js"></script>
@@ -114,12 +101,10 @@
                      for (var i = 0; i < data.length; i++) {
                      var dataElement = data[i];
                      $("#bookmarkList").append(
-                        //'<h1> 회사이름:' + '</h1>'+ '<span>' + dataElement.stocks_name + '</span>'+'<br>');
-                  
                         '<a href="../company?stocks_id=' + dataElement.stocks_id + '" class="col-4">' +
-                        '<span class="image fit" style="text-align:center">' +
+                        '<div id= "bookmarkCompany" style ="font-weight:bold">' +
                            dataElement.stocks_name +
-                        '</span>' + '</a>');
+                        '</div>' + '</a>'+ '<hr style ="margin-top:3px;">');
                      }
                   }
                  

@@ -60,16 +60,7 @@
       </ul>
    </section>
    <!-- login action -->
-   <section>
-      <ul class="actions stacked">
-         <li>
-            <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=323175054347-2opv5viepsbbh21foitrcit5qvfdh5is.apps.googleusercontent.com"
-                  class="button large fit">
-                  Sign in with Google
-               </a>
-         </li>
-      </ul>
-   </section>
+   
 </section>
 
          
@@ -156,7 +147,7 @@
        var colorData =  ["MediumVioletRed", "LightSalmon", "LightYellow","LightGreen","MediumAquaMarine","LimeGreen","OliveDrab","PaleTurquoise","LightSkyBlue", "LightSteelBlue","MediumOrchid", "MediumPurple","LightPink","Plum","Orchid","LightSlateGrey"];
        var pie = d3.pie();
        //outerRadius가 바깥쪽 반지름(inner은 안쪽)
-       var arc = d3.arc().innerRadius(40).outerRadius(150);
+       var arc = d3.arc().innerRadius(0).outerRadius(150);
 
        var svg = d3.select(".chart")
           .append("svg")

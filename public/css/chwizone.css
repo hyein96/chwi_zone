@@ -13,8 +13,6 @@
     color: white;
 
 }
-
-
 #commonCol {
     width: 100%;
     height: 250px;
@@ -32,12 +30,11 @@
     color: red;
   }
 
-
-  #companyChart {
+#companyChart {
     width:100%;
     height: 200px;
 }
-#mainCompany {
+#mainCompany, #bookmarkCompany {
   margin-bottom: 5px;
   margin-left:15px;
 }
