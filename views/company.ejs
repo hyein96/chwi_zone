@@ -11,8 +11,7 @@
 
 <body class="is-preload">
 
-   <!-- Wrapper -->
-   <div id="wrapper">
+
       <!-- Header -->
       <header id="header">
          <h1><a href="./main">Chwi-Zone</a></h1>
@@ -75,27 +74,26 @@
       </section>
       <!-- Main -->
       <div id="main">
+         <div style = "position: absolute;">
+      <div style="background-color: #d6d4d4; width:250px; height:60px; float:left; margin: 65px; margin-top: 50px;border-radius: 20px;">
+         <h3 id = "companyfav">기업 정보</h3>
+   </div>
+   
+         </div>
+         
+      </div>
+      <br><br><br><br><br><br>
+
+      
          <!--페이지 내용 -->
          
-         <h1 id="name"></h1><br>
-         <span id="sector"></span>
-         <!--data 분석해서 띄우기 -->
-         <div id="company"><h1>COMPANY 페이지</h1></div>
-         <br>
-         <hr>
-         
-         <span>회사: </span>
-         <span id="companyName"> </span><br>
-         <span>산업: </span>
+         <span id="companyName" style="font-size: 30px; font-weight: bold;"> </span>
+         <i class="icon solid fa-heart bookmark" style="float:right; margin: 10px;"></i><br><br>
          <span id="companySector"></span><br>
-         <span>가격: </span>
-         <span id="companyPrice"></span><br>
-         <i class="icon solid fa-heart bookmark" style="float:right;"></i>
-         <br>
-         
-         
-        
+         <span style="font-weight: bold;">주가: </span>
+         <span id="companyPrice" style="font-weight: bold;"></span><br>
          <img id = "companyChart" src=""></img>
+         
 
          <!-- Footer -->
          <section id="footer">
@@ -113,14 +111,12 @@
 
 
       <script>
-            const like = document.querySelector(".bookmark");
-         let value ;
-         let order;
-        
+          const like = document.querySelector(".bookmark");
 
+          let value ;
+         let order;
          //쿼리문 분석해서 ajax로 company.js ./info 로 날려서 정보 받아오기
          //queryString를 객체화(Object)하는 메소드
-         
          var email_address = sessionStorage.getItem("email");
          function getQueryStringObject() {
             var a = window.location.search.substr(1).split("&");
@@ -134,7 +130,6 @@
             return b;
          }
          var qs = getQueryStringObject();
-         
          console.log(qs);
          companyInfo();
          function companyInfo() {
@@ -179,7 +174,6 @@
                },
             });
          });
-      
          priceChart();
          function priceChart() {
             $.ajax({

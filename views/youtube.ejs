@@ -2,15 +2,47 @@
 <!DOCTYPE HTML>
 <html>
 
-<head></head>
+<head> <title>CHWI-ZONE</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script></head>
 
 <body>
     
+    <header id="header">
+        <h1><a href="./main">Chwi-Zone</a></h1>
+        <nav class="links">
+           <ul>
+              <li><a href="./mypage">마이페이지</a></li>
+              <li><a href="./bookmark">즐겨찾기</a></li>
+           </ul>
+        </nav>
+        <nav class="main">
+           <ul>
+              <li class="search">
+                 <a class="fa-search" href="#search">Search</a>
+                 <form id="search" method="get" action="#">
+                    <input type="text" name="query" placeholder="Search" />
+                 </form>
+              </li>
+              <li class="menu">
+                 <a class="fa-bars" href="#menu">Menu</a>
+              </li>
+           </ul>
+        </nav>
+     </header>
+     
     <!-- res.render로 data(json) 오면 <%=data%>로 받아오면 됨-->
-    <h1>로딩 페이지 </h1>
-    <button id="startBtn">START</button>
+    
+    <div id="loading">
+        <img id="loading-image" style="width: 35%; height: 35%; margin-top: 170px; margin-left: 200px; " src="/images/loading3.gif" alt="Loading..." />
+    </div>
+    <div id="Btn">
+        <button id="startBtn" style="background-color:#A1CAFF; width: 200px; height: 70px; margin-left: 90px; border-radius: 20px; font-size: medium; margin-top: 190px; font-weight:bold; background: linear-gradient(to bottom, #D0E4FA, #A1CAFF, #9EBFE3); box-shadow: 2px 2px 4px #999999;">확인하러 가기 </button>
+    </div>
     <!--제대로 data(email_address) 왔는지 확인 -->
-    <div id="email"><%=data%></div>
+    <div id="email" style="margin-left: 115px; margin-top: 30px; font-weight: bold;"><%=data%></div>
 
 </body>
 <script src="../js/jquery-3.2.1.min.js"></script>
