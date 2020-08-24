@@ -29,7 +29,13 @@
 .bookmark.active {
     color: red;
   }
-
+  #company{
+    margin-top: 100px;
+      margin-left: 10px;
+      font-size: 25px;
+      font-weight: 900;
+      color: white;
+  }
 #companyChart {
     width:100%;
     height: 200px;
