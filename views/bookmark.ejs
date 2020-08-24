@@ -10,9 +10,6 @@
 </head>
 
 <body class="is-preload">
-
-   <!-- Wrapper -->
-   <div id="wrapper">
       <!-- Header -->
       <header id="header">
          <h1><a href="./main">Chwi-Zone</a></h1>
@@ -74,15 +71,23 @@
          </section>
       </section>
       <!-- Main -->
-      <div id="main">
-         <h1 style="font-size:large">나의 관심 <br>회사 리스트</h1><hr>
+      <div>
+         
+         <div style = "position: absolute;">
+            <div>
+               <h2 id = "bookmark">BOOKMARK</h2>
+               <h1 id = "mainPage">나의 관심 <br>회사 리스트</h1>
+            </div>
+         </div>
+         <img id = "commonCol" src="../images/color.png"></img>
+      </div>
           <!--페이지 내용 -->
-          <h1>BOOKMARK</h1>
+          
           <section id="bookmarkList"></section>
          <!-- Footer -->
          <section id="footer">
          </section>
-      </div>
+
 
       <!-- Scripts -->
       <script src="../js/jquery-3.2.1.min.js"></script>
@@ -103,7 +108,6 @@
                   email_address: email_address,
                },
                success: function (data) {
-                  console.log(data);
                   if(data=="none"){
                      console.log(data)
                      console.log(email_address)
