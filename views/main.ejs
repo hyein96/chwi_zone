@@ -15,11 +15,11 @@
    <div id="wrapper">
       <!-- Header -->
       <header id="header">
-         <h1><a href="./index">Chwi-Zone</a></h1>
+         <h1><a href="./main">Chwi-Zone</a></h1>
          <nav class="links">
             <ul>
-               <li><a href="/mypage">마이페이지</a></li>
-               <li><a href="/bookmark">즐겨찾기</a></li>
+               <li><a href="./mypage">마이페이지</a></li>
+               <li><a href="./bookmark">즐겨찾기</a></li>
             </ul>
          </nav>
          <nav class="main">
@@ -48,13 +48,13 @@
          <section>
             <ul class="links">
                <li>
-                  <a href="/mypage">
+                  <a href="./mypage">
                      <h3>마이페이지</h3>
                      <p>MyPage</p>
                   </a>
                </li>
                <li>
-                  <a href="/bookmark">
+                  <a href="./bookmark">
                      <h3>즐겨찾기</h3>
                      <p>Favorites</p>
                   </a>
@@ -65,28 +65,38 @@
          <section>
             <ul class="actions stacked">
                <li>
-                  <a
-                     href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=499654759948-g0d8rmmhttlf55ijomhap2uboh6ot3sh.apps.googleusercontent.com">로그인</a>
+                  <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=323175054347-2opv5viepsbbh21foitrcit5qvfdh5is.apps.googleusercontent.com"
+                  class="button large fit">
+                  Sign in with Google
+               </a>
                </li>
             </ul>
          </section>
       </section>
       <!-- Main -->
       <div id="main">
-         <!-- Sidebar(틀) -->
-         <section id="sidebar">
-            <section id="intro">
-               <!--chwi-zone Logo-->
-               <a href="./index" class="logo"><img src="../images/hana.png" alt=""></a>
-               <header>
-                  <h2>Chwi-Zone</h2>
-                  <p>당신의 취향 분석을 통한 주식 추천</p>
-               </header>
-            </section>
-         </section>
-          <!--페이지 내용 -->
-         <div id="email"></div>
-         <section id="companyList"></section>
+         <!--페이지 내용 -->
+         
+         <h1 id="name"></h1><br>
+         <span id="sector"></span>
+         <!--data 분석해서 띄우기 -->
+         <div id="company"><h1>COMPANY 페이지</h1></div>
+         <br>
+         <hr>
+         
+         <span>회사: </span>
+         <span id="companyName"> </span><br>
+         <span>산업: </span>
+         <span id="companySector"></span><br>
+         <span>가격: </span>
+         <span id="companyPrice"></span><br>
+         <i class="icon solid fa-heart bookmark" style="float:right;"></i>
+         <br>
+         
+         
+        
+         <img id = "companyChart" src=""></img>
+
          <!-- Footer -->
          <section id="footer">
          </section>
@@ -98,41 +108,94 @@
       <script src="../js/breakpoints.min.js"></script>
       <script src="../js/util.js"></script>
       <script src="../js/main.js"></script>
+  
+  
+
 
       <script>
-         //받아온 data값이 아닌 session 값에 있는 email 활용
-         var email_address = sessionStorage.getItem("email");
+            const like = document.querySelector(".bookmark");
+         let value ;
+         let order;
+        
 
-         //취향 받아와서 회사 띄우기(sector_name보다 youtube_category로 하는게 좋을 듯)
-         //main.js 코드다 company_list가 서버 초기화 안시키면 계속 받아오지기 때문에 company_list 값 받아올때마다 초기화하게 코드 작성 
-         recommendStock();
-         function recommendStock() {
+         //쿼리문 분석해서 ajax로 company.js ./info 로 날려서 정보 받아오기
+         //queryString를 객체화(Object)하는 메소드
+         
+         var email_address = sessionStorage.getItem("email");
+         function getQueryStringObject() {
+            var a = window.location.search.substr(1).split("&");
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i) {
+               var p = a[i].split("=", 2);
+               if (p.length == 1) b[p[0]] = "";
+               else b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+            return b;
+         }
+         var qs = getQueryStringObject();
+         
+         console.log(qs);
+         companyInfo();
+         function companyInfo() {
             $.ajax({
-               url: "/main/recommend",
+               url: "/company/info",
                type: "GET",
                data: {
-                  email_address: email_address,
+                  stocks_id: qs.stocks_id,
+                  email_address :email_address,
                },
                success: function (data) {
-                  console.log(data);
-                  for (var i = 0; i < data.length; i++) {
-                     var dataElement = data[i];
-                     $("#companyList").append(
-                        '<h1>' + dataElement.sector_name + '</h1>')
-                     for (var j = 0; j < dataElement.company_list.length; j++) {
-                        var company_stocks_id = dataElement.company_list[j].stocks_id;
-                        $("#companyList").append(
-                           '<a href="../company?stocks_id=' + company_stocks_id + '" class="col-4">' +
-                           '<span class="image fit" style="text-align:center">' +
-                           dataElement.company_list[j].stocks_name +
-                           '</span>' + '</a>');
-                     }
-                     $("#companyList").append('<br>');
+                  console.log(data.length);
+                  $("#companyName").text(data[0][0].stocks_name);
+                  $("#companySector").text(data[0][0].sector_name);
+                  value = data[1][0].value;
+                  console.log(value);
+                  if(value == 1){
+                     like.classList.add("active");
+                  }else if (value ==0){
+                     like.classList.remove("active");
                   }
                },
             });
          }
+         like.addEventListener("click", () => {
+            like.classList.toggle("active");
+            if(like.classList.contains("active")){
+               order = "insert"
+            }else{
+               order = "delete"
+            }
+            $.ajax({
+               url: "/bookmark",
+               type: "POST",
+               data: {
+                  stocks_id: qs.stocks_id,
+                  email_address :email_address,
+                  order: order,
+               },
+               success: function (data) {
+                 console.log("bookmark success");
+               },
+            });
+         });
+      
+         priceChart();
+         function priceChart() {
+            $.ajax({
+               url: "/company/price",
+               type: "GET",
+               success: function (data) {
+                  console.log(data);
+                  $("#companyPrice").text(data[0]);
+                  document.getElementById('companyChart').src = data[1];
+
+               },
+            });
+         }
+
       </script>
+
 </body>
 
-</html
+</html>

@@ -11,86 +11,94 @@
 
 <body class="is-preload">
 
-   <!-- Wrapper -->
-   <div id="wrapper">
-      <!-- Header -->
-      <header id="header">
-         <h1><a href="./index">Chwi-Zone</a></h1>
-         <nav class="links">
-            <ul>
-               <li><a href="/mypage">마이페이지</a></li>
-               <li><a href="/favorite">즐겨찾기</a></li>
-            </ul>
-         </nav>
-         <nav class="main">
-            <ul>
-               <li class="search">
-                  <a class="fa-search" href="#search">Search</a>
-                  <form id="search" method="get" action="#">
-                     <input type="text" name="query" placeholder="Search" />
-                  </form>
-               </li>
-               <li class="menu">
-                  <a class="fa-bars" href="#menu">Menu</a>
-               </li>
-            </ul>
-         </nav>
-      </header>
-      <!-- Menu -->
-      <section id="menu">
-         <!-- Search -->
-         <section>
-            <form class="search" method="get" action="#">
+<!-- Header -->
+<header id="header">
+   <h1><a href="./main">Chwi-Zone</a></h1>
+   <nav class="links">
+      <ul>
+         <li><a href="/mypage">마이페이지</a></li>
+         <li><a href="/favorite">즐겨찾기</a></li>
+      </ul>
+   </nav>
+   <nav class="main">
+      <ul>
+         <li class="search">
+            <a class="fa-search" href="#search">Search</a>
+            <form id="search" method="get" action="#">
                <input type="text" name="query" placeholder="Search" />
             </form>
-         </section>
-         <!-- Links -->
-         <section>
-            <ul class="links">
-               <li>
-                  <a href="/mypage">
-                     <h3>마이페이지</h3>
-                     <p>MyPage</p>
-                  </a>
-               </li>
-               <li>
-                  <a href="/favorite">
-                     <h3>즐겨찾기</h3>
-                     <p>Favorites</p>
-                  </a>
-               </li>
-            </ul>
-         </section>
-         <!-- login action -->
-         <section>
-            <ul class="actions stacked">
-               <li>
-                  <a
-                     href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=499654759948-g0d8rmmhttlf55ijomhap2uboh6ot3sh.apps.googleusercontent.com">로그인</a>
-               </li>
-            </ul>
-         </section>
-      </section>
-      <!-- Main -->
-      <div id="main">
-         <!-- Sidebar(틀) -->
-         <section id="sidebar">
-            <section id="intro">
-               <!--chwi-zone Logo-->
-               <a href="./index" class="logo"><img src="../images/hana.png" alt=""></a>
-               <header>
-                  <h2>Chwi-Zone</h2>
-                  <p>당신의 취향 분석을 통한 주식 추천</p>
-               </header>
-            </section>
-         </section>
+         </li>
+         <li class="menu">
+            <a class="fa-bars" href="#menu">Menu</a>
+         </li>
+      </ul>
+   </nav>
+</header>
+<!-- Menu -->
+<section id="menu">
+   <!-- Search -->
+   <section>
+      <form class="search" method="get" action="#">
+         <input type="text" name="query" placeholder="Search" />
+      </form>
+   </section>
+   <!-- Links -->
+   <section>
+      <ul class="links">
+         <li>
+            <a href="/mypage">
+               <h3>마이페이지</h3>
+               <p>MyPage</p>
+            </a>
+         </li>
+         <li>
+            <a href="/bookmark">
+               <h3>즐겨찾기</h3>
+               <p>Favorites</p>
+            </a>
+         </li>
+      </ul>
+   </section>
+   <!-- login action -->
+   <section>
+      <ul class="actions stacked">
+         <li>
+            <a
+               href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=499654759948-g0d8rmmhttlf55ijomhap2uboh6ot3sh.apps.googleusercontent.com">로그인</a>
+         </li>
+      </ul>
+   </section>
+</section>
+
+         
       <!--페이지 내용 -->
-      <h1>MY PAGE</h1>
-         <span>이름 : </span>
+      <div>
+         <div style = "position: absolute;">
+            <div>
+               <h1 id = "myPage">MY PAGE</h1>
+            </div>
+      
+         <div style="float:left"><img src="../images/hana.png" alt="" style="width:100px; height: 100px; border-radius: 50%; margin-left: 10px;"></div>
+         <div style="float:left">
+            <br>
+         <span style="margin-left: 10px;">이름 : </span>
          <span id = "name"> </span><br>
-         <span>이메일 : </span>
+         <span style="margin-left: 10px;">이메일 : </span>
          <span id = "email"></span>
-         <section id="categoryList"></section>
+      </div>
+         </div>
+         <img id = "commonCol" src="../images/color.png"></img>
+      </div>
+      <br>
+      <img src="../images/myCategory.png" style ="margin-left: 10px"></img>
+
+      
+      <br>
+      
+         
+         <div class="chart"></div>
+         <br>
+         <br>
       
       <section id="userList"></section>
       <!-- Footer -->
@@ -104,42 +112,95 @@
  <script src="../js/breakpoints.min.js"></script>
  <script src="../js/util.js"></script>
  <script src="../js/main.js"></script>
-   <script>
-       var email_address = sessionStorage.getItem("email");
-       userInfo();
-         function userInfo() {
-            $.ajax({
-               url: "/mypage/user",
-               type: "GET",
-               data: {
-                 email_address: email_address,
-               },
-               success: function (data) {
-                  console.log(data);
-                  console.log(data[1].length);
-                //   for(var j = 0 ; j < data.length; j++){
-                //       for(var k = 0; k <data[j].length; k++) {
-                //           console.log(data[j][k]);
-                //       }
-                //   }
-                  $("#name").text(data[0][0].user_name);
-                  $("#email").text(data[0][0].email_address);
-                
-                  for (var i = 0; i < data[1].length; i++) {
-                     var dataElement = data[1][i];
-                     $("#userList").append(
-                        '<h1>' + dataElement.youtube_category + '</h1>'+
-                        '<span>'+ dataElement.sub_count + '</span>');
-                  }
-               },
-            });
-         }
+ <script src="https://d3js.org/d3.v4.min.js"></script>
+ <script>
+    var email_address = sessionStorage.getItem("email");
 
-   </script>
+    function userInfo() {
+       $.ajax({
+          url: "/mypage/user",
+          type: "GET",
+          data: {
+             email_address: email_address,
+          },
+          success: function (data) {
+             console.log(data);
+             $("#name").text(data[0][0].user_name);
+             $("#email").text(data[0][0].email_address);
 
-   <script>
+             var sum = 0;
+             var subCountList = new Array();
+             var categoryList = new Array();
+             for (var i = 0; i < data[1].length; i++) {
+                var dataElement = data[1][i];
+                sum += dataElement.sub_count;
+             }
 
-   </script>
+             for (var i = 0; i < data[1].length; i++) {
+                var category = data[1][i].youtube_category;
+                var percentSub = Math.floor((data[1][i].sub_count / sum) * 100);
+                subCountList.push(percentSub);
+                categoryList.push(category);
+             }
+             console.log(subCountList);
+             drawChart(categoryList, subCountList);
+          },
+       });
+    }
+
+    function drawChart(cList, sList) {
+       var w = 300, h = 400;
+       var graphCategory = cList;
+       var graphCount = sList;
+       // 취향 개수대로 colorData 연결됨(취향 개수랑 colorData 개수 같을 필요 없음 )
+       var colorData =  ["MediumVioletRed", "LightSalmon", "LightYellow","LightGreen","MediumAquaMarine","LimeGreen","OliveDrab","PaleTurquoise","LightSkyBlue", "LightSteelBlue","MediumOrchid", "MediumPurple","LightPink","Plum","Orchid","LightSlateGrey"];
+       var pie = d3.pie();
+       //outerRadius가 바깥쪽 반지름(inner은 안쪽)
+       var arc = d3.arc().innerRadius(40).outerRadius(150);
+
+       var svg = d3.select(".chart")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h)
+          .attr("id", "graphWrap");
+
+       var g = svg.selectAll(".pie")
+          .data(pie(graphCount))
+          .enter()
+          .append("g")
+          .attr("class", "pie")
+          .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+
+       g.append("path")
+          .style("fill", function (d, i) {
+             return colorData[i];
+          })
+          .transition()
+          .duration(500)
+          .delay(function (d, i) {
+             return i * 500;
+          })
+          .attrTween("d", function (d, i) {
+             var interpolate = d3.interpolate(
+                { startAngle: d.startAngle, endAngle: d.startAngle },
+                { startAngle: d.startAngle, endAngle: d.endAngle }
+             );
+             return function (t) {
+                return arc(interpolate(t));
+             }
+          });
+
+       g.append("text")
+          .attr("transform", function (d) { return "translate(" + arc.centroid(d) + ")"; })
+          .attr("dy", ".35em")
+          .style("text-anchor", "middle")
+          .text(function (d, i) {
+             return graphCategory[i] + ": " + graphCount[i] + "%";
+          });
+
+    }
+    userInfo();
+ </script>
 </body>
 
-</html
+</html>

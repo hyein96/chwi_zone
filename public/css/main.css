@@ -1,5 +1,7 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Raleway:400,800,900");
+@import url(chwizone.css);
+
 
 /*
 	Future Imperfect by HTML5 UP
@@ -25,12 +27,14 @@ section, summary, time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;}
 
+	
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
 
 body {
 	line-height: 1;
+	background-color: white;
 }
 
 ol, ul {
@@ -56,7 +60,7 @@ body {
 }
 
 mark {
-	background-color: transparent;
+	background-color: white;
 	color: inherit;
 }
 
@@ -3057,7 +3061,7 @@ input, select, textarea {
 		}
 
 			table tbody tr:nth-child(2n + 1) {
-				background-color: rgba(160, 160, 160, 0.075);
+				background-color: white;
 			}
 
 		table td {
@@ -3609,3 +3613,27 @@ input, select, textarea {
 			}
 
 		}
+		#loading {
+			width: 100%;   
+			height: 100%;   
+			top: 50px;
+			right: 100px;
+			position: relative;   
+			display: block;   
+			opacity: 0.5;   
+			background-color: rgba(255, 255, 255, 0);   
+			z-index: 99;   
+			text-align: center; 
+		}
+		#loading-image {   
+			position: absolute;   
+			top: 50%;   
+			margin-left: 20%;  
+		}
+		#Btn {
+			
+			margin-top:50%;
+			margin-left:40%;
+		}
+
+		

@@ -6,7 +6,6 @@
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
    <link rel="stylesheet" href="../css/main.css" />
-   <link rel="stylesheet" href="../css/star.css" />
    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
@@ -16,11 +15,11 @@
    <div id="wrapper">
       <!-- Header -->
       <header id="header">
-         <h1><a href="./index">Chwi-Zone</a></h1>
+         <h1><a href="./main">Chwi-Zone</a></h1>
          <nav class="links">
             <ul>
                <li><a href="./mypage">마이페이지</a></li>
-               <li><a href="./favorite">즐겨찾기</a></li>
+               <li><a href="./bookmark">즐겨찾기</a></li>
             </ul>
          </nav>
          <nav class="main">
@@ -55,7 +54,7 @@
                   </a>
                </li>
                <li>
-                  <a href="./favorite">
+                  <a href="./bookmark">
                      <h3>즐겨찾기</h3>
                      <p>Favorites</p>
                   </a>
@@ -66,42 +65,41 @@
          <section>
             <ul class="actions stacked">
                <li>
-                  <a
-                     href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=499654759948-g0d8rmmhttlf55ijomhap2uboh6ot3sh.apps.googleusercontent.com">로그인</a>
+                  <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube.readonly openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/account/googlesigncallback&response_type=code&client_id=323175054347-2opv5viepsbbh21foitrcit5qvfdh5is.apps.googleusercontent.com"
+                  class="button large fit">
+                  Sign in with Google
+               </a>
                </li>
             </ul>
          </section>
       </section>
       <!-- Main -->
       <div id="main">
-         <!-- Sidebar(틀) -->
-         <section id="sidebar">
-            <section id="intro">
-               <!--chwi-zone Logo-->
-               <a href="./index" class="logo"><img src="../images/hana.png" alt=""></a>
-               <header>
-                  <h2>Chwi-Zone</h2>
-                  <p>당신의 취향 분석을 통한 주식 추천</p>
-               </header>
-            </section>
-         </section>
          <!--페이지 내용 -->
-         <h1>COMPANY 페이지</h1>
-         <span>회사 : </span>
-         <span id="name"> </span><br>
-         <span>산업 : </span>
+         
+         <h1 id="name"></h1><br>
          <span id="sector"></span>
          <!--data 분석해서 띄우기 -->
-         <div id="company"></div>
+         <div id="company"><h1>COMPANY 페이지</h1></div>
+         <br>
+         <hr>
+         
+         <span>회사: </span>
+         <span id="companyName"> </span><br>
+         <span>산업: </span>
+         <span id="companySector"></span><br>
+         <span>가격: </span>
+         <span id="companyPrice"></span><br>
+         <i class="icon solid fa-heart bookmark" style="float:right;"></i>
+         <br>
+         
+         
+        
+         <img id = "companyChart" src=""></img>
+
          <!-- Footer -->
          <section id="footer">
          </section>
-         <input type="radio" class="icon solid fa-star">
-         <!-- <input type="button" onclick="toggle(this)" class="icon solid fa-star"> -->
-         <a onclick="if(!confirm('즐겨찾기에 추가하시겠습니까?')){return false;}" class="icon solid fa-star"
-            style="float:right;">즐겨찾기</a><br>
-         <hr>
-         <i class="icon solid fa-heart bookmark"></i>
       </div>
 
       <!-- Scripts -->
@@ -110,8 +108,12 @@
       <script src="../js/breakpoints.min.js"></script>
       <script src="../js/util.js"></script>
       <script src="../js/main.js"></script>
+  
+  
+
+
       <script>
-         const like = document.querySelector(".bookmark");
+            const like = document.querySelector(".bookmark");
          let value ;
          let order;
         
@@ -145,8 +147,8 @@
                },
                success: function (data) {
                   console.log(data.length);
-                  $("#name").text(data[0][0].stocks_name);
-                  $("#sector").text(data[0][0].sector_name);
+                  $("#companyName").text(data[0][0].stocks_name);
+                  $("#companySector").text(data[0][0].sector_name);
                   value = data[1][0].value;
                   console.log(value);
                   if(value == 1){
@@ -177,6 +179,21 @@
                },
             });
          });
+      
+         priceChart();
+         function priceChart() {
+            $.ajax({
+               url: "/company/price",
+               type: "GET",
+               success: function (data) {
+                  console.log(data);
+                  $("#companyPrice").text(data[0]);
+                  document.getElementById('companyChart').src = data[1];
+
+               },
+            });
+         }
+
       </script>
 
 </body>
