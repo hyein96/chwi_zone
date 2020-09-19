@@ -71,16 +71,17 @@
             <h1 style="font-size:25px; text-align: center; padding:75px 10px; color:white">
                회사 상세 정보</h1>
          </div>
-      <div style="max-width: 800px; padding-left: 30px;padding-right: 30px; margin:0 auto;">
+      <div style="max-width: 800px; padding-left: 30px;padding-right: 30px; margin:0 auto;padding-bottom: 30px;">
          <span id="companyName" style="font-size: 30px; font-weight: bold;"> </span>
          <i class="icon solid fa-heart bookmark" style="float:right; margin: 10px;"></i><br><br>
          <span id="companySector"></span><br>
          <span style="font-weight: bold;">주가: </span>
          <span id="companyPrice" style="font-weight: bold;"></span><br>
          <img id = "companyChart" src=""></img>
-         <span style="font-weight: bold; margin-left:7px;">최신 뉴스: </span>
-         <section id = "newsList"></section>
-
+         <div style="margin-top: 20px;padding:15px;background-color: #f6f7fa; border-radius: 40px;">
+            <div style="font-size:20px;font-weight: bold; margin-left:7px;">최신 뉴스</div>
+            <section style="line-height: 3em;"id = "newsList"></section>
+         </div>
       </div>
          <!-- Footer -->
          <section id="footer">
@@ -197,7 +198,9 @@
                   //console.log(newsNum);
                   for(var i = 0 ; i < newsNum; i++){
                      //뉴스띄워서 링크랑 연결하기 
-                     $("#newsList").append(data[i][0]+'<br>');
+                     $("#newsList").append(
+                        '<a href="' + data[i][1] + '">' + data[i][0] + '</a>'+'</br>');
+
                   }
                },
             });
