@@ -36,6 +36,9 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	background-color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 ol, ul {
