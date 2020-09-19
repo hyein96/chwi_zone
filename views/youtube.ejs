@@ -13,13 +13,13 @@
     <header id="header">
         <h1><a href="./main">Chwi-Zone</a></h1>
         <nav class="links">
-           <ul>
+           <!-- <ul>
               <li><a href="./mypage">마이페이지</a></li>
               <li><a href="./bookmark">즐겨찾기</a></li>
-           </ul>
+           </ul> -->
         </nav>
         <nav class="main">
-           <ul>
+           <!-- <ul>
               <li class="search">
                  <a class="fa-search" href="#search">Search</a>
                  <form id="search" method="get" action="#">
@@ -29,20 +29,17 @@
               <li class="menu">
                  <a class="fa-bars" href="#menu">Menu</a>
               </li>
-           </ul>
+           </ul> -->
         </nav>
      </header>
      
     <!-- res.render로 data(json) 오면 <%=data%>로 받아오면 됨-->
     
     <div>
-        <img style="width: 300px; height: 300px; margin-top:100px" src="/images/zonelogo.png" />
+        <img style="width: 300px; height: 300px; margin-top:100px" src="/images/done.png" />
     </div>  
     <div>
-        <img  style="margin-top:30px ;" src="/images/boon1.png " />
-    </div>
-    <div>
-        <button id="startBtn" style="background-color:#A1CAFF; width: 200px; height: 70px; border-radius: 20px; font-size: medium; font-weight:bold; margin-top: 20px; background: linear-gradient(to bottom, #D0E4FA, #A1CAFF, #9EBFE3); box-shadow: 2px 2px 4px #999999;">확인하러 가기 </button>
+        <button id="startBtn" style="background-color:#A1CAFF; width: 250px; height: 70px; border-radius: 20px; font-size: medium; font-weight:bold; margin-top: 20px; background: linear-gradient(to bottom, #D0E4FA, #A1CAFF, #9EBFE3); box-shadow: 2px 2px 4px #999999;">취향 분석하러 가기</button>
         <div id = "email", style="color:white"><%=data%></div>
     </div>
     <!--제대로 data(email_address) 왔는지 확인 -->
