@@ -78,6 +78,9 @@
          <span style="font-weight: bold;">주가: </span>
          <span id="companyPrice" style="font-weight: bold;"></span><br>
          <img id = "companyChart" src=""></img>
+         <span style="font-weight: bold; margin-left:7px;">최신 뉴스: </span>
+         <section id = "newsList"></section>
+
       </div>
          <!-- Footer -->
          <section id="footer">
@@ -129,7 +132,8 @@
                },
                success: function (data) {
                   console.log(data.length);
-                  $("#companyName").text(data[0][0].stocks_name);
+                  var company_name = data[0][0].stocks_name;
+                  $("#companyName").text(company_name);
                   $("#companySector").text(data[0][0].sector_name);
                   value = data[1][0].value;
                   console.log(value);
@@ -138,9 +142,11 @@
                   }else if (value ==0){
                      like.classList.remove("active");
                   }
+                  companyNews(company_name);
                },
             });
          }
+
          like.addEventListener("click", () => {
             like.classList.toggle("active");
             if(like.classList.contains("active")){
@@ -178,6 +184,25 @@
                },
             });
          }
+         function companyNews(company_name) {
+            $.ajax({
+               url: "/company/news",
+               type:"GET",
+               data: {
+                  company_name: company_name,
+               },
+               success: function (data) {
+                  var newsNum = data.length;
+                  console.log(data);
+                  //console.log(newsNum);
+                  for(var i = 0 ; i < newsNum; i++){
+                     //뉴스띄워서 링크랑 연결하기 
+                     $("#newsList").append(data[i][0]+'<br>');
+                  }
+               },
+            });
+         }
+
 
       </script>
 

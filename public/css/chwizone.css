@@ -57,5 +57,8 @@
   background-color: #A1CAFF;
   max-width: 800px; 
   margin: auto;
-  margin-bottom: 20px;s
+  margin-bottom: 20px;
+}
+#newsList{
+  padding-left: 10px;
 }
