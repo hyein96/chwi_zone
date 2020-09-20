@@ -39,7 +39,7 @@ router.get("/googlesigncallback", (req, res, next) => {
       //#자기 키로 시크릿 변경
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
-      redirect_uri: "http://localhost:3000/account/googlesigncallback",
+      redirect_uri: "https://chwizone.cf/account/googlesigncallback",
       grant_type: "authorization_code",
     },
   };
